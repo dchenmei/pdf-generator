@@ -40,7 +40,37 @@ FILE* PDFWriter::text_to_pdf()
 	string filename = out + ".pdf";
 	const char* f = filename.c_str();
 	FILE *pdf = fopen(f , "w");
-	fputs("%PDF-1.7", pdf);
+
+	/* Header */
+	fputs("%PDF-1.7\n", pdf);
+
+	/* Necessary set up objects */
+
+	/* Catalog obj */
+	fputs("1 0 obj <</Type /Catalog /Pages 2 0 R>>\n", pdf);
+	fputs("endobj\n", pdf);
+
+	/* Page obj */
+	fputs("2 0 obj <</Type /Pages /Kids [3 0 R]  /Count 1>>\n", pdf);
+	fputs("endobj\n", pdf);
+
+	/* Mediabox obj */
+	fputs("3 0 obj <</Mediabox [0 0 612 792]>>\n", pdf);
+	fputs("endobj\n", pdf);
+	
+	/* Content */
+
+	/* xref table */
+	fputs("xref\n", pdf);
+	fputs("0 4\n", pdf);
+	fputs("0000000000 65535 f\n", pdf);
+	fputs("0000000010 00000 n\n", pdf);
+	fputs("0000000060 00000 n\n", pdf);
+	fputs("0000000115 00000 n\n", pdf);
+	fputs("trailer <</Size 4/Root 1 0 R>>\n", pdf);
+	fputs("startxref\n", pdf);
+	fputs("199\n", pdf);
+	fputs("%%EOF\n", pdf);
 	fclose(pdf);
 }
 
