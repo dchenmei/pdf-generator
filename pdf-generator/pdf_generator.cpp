@@ -1,11 +1,18 @@
 #include <iostream>
 #include <string>
-#include "text_to_pdf.cpp"
+#include <cstdio>
+#include "pdf_writer.h"
 
+/* To compile, please include pdf_write.cpp */ 
+
+/* TODO: optimize namespace later 
 using std::cout;
 using std::cin;
 using std::endl;
 using std::string;
+*/
+
+using namespace std;
 
 /* Usage Instructions
  *
@@ -22,7 +29,6 @@ void print_usage_instruction()
 	cout << "Note: Only supports text files, images (jpeg and png), and HTML" << endl;
 }
 
-// TODO: Is this function necessary or can we just write one if statement 
 bool valid_file_name(string name)
 {
 	/* Not using compare, because only true/false is needed */
@@ -62,7 +68,25 @@ int main(int argc, char *argv[])
 		print_usage_instruction();
 	}
 
-	/* Open the file for processing */
+	/* Open file */
+	FILE *f = fopen(argv[1], "r");
+
+	if (f == NULL) 
+	{
+		cout << "Error: File not found." << endl;
+	}
 	
+	/* Pass to file writer and alert completion */
+	
+	PDFWriter *writer;
+	if (argc == 4)
+		writer = new PDFWriter(f, extension, argv[3]);
+	else
+		writer = new PDFWriter(f, extension);
+
+	writer->write_to_pdf();
+
+	// TODO: Print message about completion / failure as well as resulting file name
+
 	return 0;
 }
