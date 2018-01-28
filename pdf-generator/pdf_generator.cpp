@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include "text_to_pdf.cpp"
 
 using std::cout;
 using std::cin;
