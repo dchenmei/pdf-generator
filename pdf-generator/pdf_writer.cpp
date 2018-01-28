@@ -36,6 +36,12 @@ FILE* PDFWriter::write_to_pdf()
 
 FILE* PDFWriter::text_to_pdf()
 {
+	/* No need to check, a new file is created anyway */
+	string filename = out + ".pdf";
+	const char* f = filename.c_str();
+	FILE *pdf = fopen(f , "w");
+	fputs("%PDF-1.7", pdf);
+	fclose(pdf);
 }
 
 FILE* PDFWriter::img_to_pdf()
@@ -46,7 +52,11 @@ FILE* PDFWriter::html_to_pdf()
 {
 }
 
+/* Main function for independent testing
+ * TODO: Delete after completing project
+ 
 int main()
 {
 	return 0;
 }
+ */
