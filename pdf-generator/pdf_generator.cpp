@@ -24,8 +24,8 @@ using namespace std;
 void print_usage_instruction()
 {
 	cout << "Usage: " << endl;
-	cout << "./pdf-generator filename.ext -o out.pdf" << endl;
-	cout << "-o: optional option to set name for output" << endl;
+	cout << "./pdf-generator filename.ext out" << endl;
+	cout << "out: optional file name for output pdf" << endl;
 	cout << "Note: Only supports text files, images (jpeg and png), and HTML" << endl;
 }
 
@@ -48,7 +48,7 @@ int main(int argc, char *argv[])
      */
 
 	/* Insufficient arguments, print usage instruction */
-	if (argc != 2 && argc != 4)
+	if (argc != 2 && argc != 3)
 	{
 		cout << "Error: Invalid number of arguments. See below." << endl;
 		print_usage_instruction();
@@ -79,8 +79,8 @@ int main(int argc, char *argv[])
 	/* Pass to file writer and alert completion */
 	
 	PDFWriter *writer;
-	if (argc == 4)
-		writer = new PDFWriter(f, extension, argv[3]);
+	if (argc == 3)
+		writer = new PDFWriter(f, extension, argv[2]);
 	else
 		writer = new PDFWriter(f, extension);
 
