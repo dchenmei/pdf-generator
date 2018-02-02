@@ -36,23 +36,31 @@ FILE* PDFWriter::write_to_pdf()
 
 FILE* PDFWriter::text_to_pdf()
 {
-	// Option 1: Open one, copy to another (worse than writing one by one)
-	// Option 2: Have it stored, use a stream to dump all of it in (no need to clutter code with fputs)
-	/* Alternative solution, modifying a pdf template to save time */
 
-	/* Line to modify I: version number */
-
-
-	/* Line to modify II: length of stream */
-
-
-	/* Line(s) to modify III: Actual content */
-
-
-	/* Line(s) to modify IV: xref table */
-
+	string line = "Hello, my name is Jack!";
 	
-	/* Line to modify V: final total byte value */
+	/* TODO: Modify so writing is on a new file */
+    // string filename = out + ".pdf";
+	// const char* f = filename.c_str();
+	
+	// TODO: Figure a way to use macros instead of magic number 
+	ofstream pdf;
+	pdf.open("1.pdf", ios::in);
+	pdf << "%PDF-" + PDF_VERSION;
+	
+	pdf.close();
+
+	/* Line to modify I: version number aka overwrite first line */
+	
+
+	/* Open in append mode instead */
+
+	/* Put in the content */
+	string::size_type length = line.size();
+	length += 30; // The other stuff like font takes bytes too
+
+	/* Put in the xref and etc stuff */
+
 	
 	#if 0
 	/* No need to check, a new file is created anyway */

@@ -5,9 +5,14 @@
  *********************************************/
 
 #include <string>
-#define PDF_VERSION 1.7
+#include <iostream>
+#include <fstream> // file i/o
+#include <iomanip> // set precision
 
 using namespace std;
+
+const string PDF_VERSION = "1.5";
+
 
 class PDFWriter
 {
