@@ -69,20 +69,15 @@ int main(int argc, char *argv[])
 	}
 
 	/* Open file */
-	FILE *f = fopen(argv[1], "r");
+	ifstream file(argv[1]);
 
-	if (f == NULL) 
-	{
-		cout << "Error: File not found." << endl;
-	}
-	
 	/* Pass to file writer and alert completion */
 	
 	PDFWriter *writer;
 	if (argc == 3)
-		writer = new PDFWriter(f, extension, argv[2]);
+		writer = new PDFWriter(argv[1], extension, argv[2]);
 	else
-		writer = new PDFWriter(f, extension);
+		writer = new PDFWriter(argv[1], extension);
 
 	writer->write_to_pdf();
 

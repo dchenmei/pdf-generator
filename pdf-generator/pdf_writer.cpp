@@ -2,39 +2,45 @@
 
 // Public 
 //
-PDFWriter::PDFWriter(FILE *f, string e): file(f), extension(e), out(e)
+PDFWriter::PDFWriter(string s, string e): name(s), extension(e), out(e)
 {
-	// TODO: Get the original name instead?
+	ifstream file(s);
+	if(!file.is_open())
+	{
+		cout << "Error: File not found!" << endl;
+	}
 }
 
-PDFWriter::PDFWriter(FILE *f, string e, string o): file(f), extension(e), out(o)
+PDFWriter::PDFWriter(string s, string e, string o): name(s), extension(e), out(o)
 {
+	ifstream file(s);
+	if(!file.is_open())
+	{
+		cout << "Error: File not found!" << endl;
+	}
 }
 
-FILE* PDFWriter::write_to_pdf()
+void PDFWriter::write_to_pdf()
 {
-	FILE *pdf;
 	switch(extension[0])
 	{
 		case 't':
-			pdf = text_to_pdf();
+	    	text_to_pdf();
 			break;
 		case 'j':
-			pdf = img_to_pdf();
+			img_to_pdf();
 			break;
 		case 'h':
-			pdf = html_to_pdf();
+			html_to_pdf();
 			break;
 		default:
 			break;
 	}
-
-	return pdf;
 }
 
 // Private
 
-FILE* PDFWriter::text_to_pdf()
+void PDFWriter::text_to_pdf()
 {
 	string line = "Hello, my name is Jack!";
 	string line2 = "No, my name is actually spelled Jeck";
@@ -90,11 +96,11 @@ FILE* PDFWriter::text_to_pdf()
 	pdf.close();
 }
 
-FILE* PDFWriter::img_to_pdf()
+void PDFWriter::img_to_pdf()
 {
 }
 
-FILE* PDFWriter::html_to_pdf()
+void PDFWriter::html_to_pdf()
 {
 }
 
