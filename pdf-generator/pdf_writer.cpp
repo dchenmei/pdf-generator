@@ -4,7 +4,7 @@
 //
 PDFWriter::PDFWriter(string s, string e): name(s), extension(e), out(e)
 {
-	ifstream file(s);
+	file.open(s);
 	if(!file.is_open())
 	{
 		cout << "Error: File not found!" << endl;
@@ -13,7 +13,7 @@ PDFWriter::PDFWriter(string s, string e): name(s), extension(e), out(e)
 
 PDFWriter::PDFWriter(string s, string e, string o): name(s), extension(e), out(o)
 {
-	ifstream file(s);
+	file.open(s);
 	if(!file.is_open())
 	{
 		cout << "Error: File not found!" << endl;
@@ -47,8 +47,8 @@ void PDFWriter::write_to_pdf()
 
 void PDFWriter::text_to_pdf()
 {
-	string line = "Hello, my name is Jack!";
-	string line2 = "No, my name is actually spelled Jeck";
+	//string line = "Hello, my name is Jack!";
+	//string line2 = "No, my name is actually spelled Jeck";
 	
     // string filename = out + ".pdf";
 	// const char* f = filename.c_str();
@@ -68,8 +68,8 @@ void PDFWriter::text_to_pdf()
 	/* Open in append mode instead */
 	pdf.open("out.pdf", ios::app);
 	
-	/* Length calculation */
-	string::size_type length = line.size() + line2.size();
+	/* Length calculation TODO: Magic number spotted */
+	string::size_type length = 100;
 	length += 30; // The other stuff like font takes bytes too
 	pdf << "<</Length " + to_string(length) + ">>\n";
 	
@@ -77,8 +77,16 @@ void PDFWriter::text_to_pdf()
 	/* Because font size is 12, each line is separated by 12 plus no margin */
 	pdf << "stream\n";
 
-	pdf << create_line(line, DEFAULT_X, DEFAULT_Y);
-	pdf << create_line(line2, DEFAULT_X, DEFAULT_Y - 12);
+	//ifstream file(name);
+	string line;
+	int y = DEFAULT_Y;
+	while (getline(file, line))
+	{
+		pdf << create_line(line, DEFAULT_X, y);
+		y -= 12;
+	}
+	// pdf << create_line(line, DEFAULT_X, DEFAULT_Y);
+	// pdf << create_line(line2, DEFAULT_X, DEFAULT_Y - 12);
 
 	pdf << "endstream\n";
 	pdf << "endobj\n";
