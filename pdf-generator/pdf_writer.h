@@ -20,6 +20,7 @@ class PDFWriter
   public:
 	PDFWriter(string s, string e);           // write w/o output name 
 	PDFWriter(string s, string e, string o); // writer w/ output name
+	~PDFWriter();
 	void write_to_pdf();
 
   private:

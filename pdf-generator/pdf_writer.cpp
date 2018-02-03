@@ -20,6 +20,11 @@ PDFWriter::PDFWriter(string s, string e, string o): name(s), extension(e), out(o
 	}
 }
 
+PDFWriter::~PDFWriter()
+{
+	file.close();
+}
+
 void PDFWriter::write_to_pdf()
 {
 	switch(extension[0])
