@@ -11,7 +11,9 @@
 
 using namespace std;
 
-const string PDF_VERSION = "1.5";
+const string PDF_VERSION = "1.7";
+const int DEFAULT_X = 50;
+const int DEFAULT_Y = 720;
 
 
 class PDFWriter
@@ -26,6 +28,7 @@ class PDFWriter
 	FILE* text_to_pdf();
 	FILE* img_to_pdf();
 	FILE* html_to_pdf();
+	string create_line(string s, int x, int y);
 
 	FILE *file;
 	string extension;

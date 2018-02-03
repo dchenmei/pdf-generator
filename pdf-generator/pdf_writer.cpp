@@ -36,8 +36,8 @@ FILE* PDFWriter::write_to_pdf()
 
 FILE* PDFWriter::text_to_pdf()
 {
-
 	string line = "Hello, my name is Jack!";
+	string line2 = "No, my name is actually spelled Jeck";
 	
     // string filename = out + ".pdf";
 	// const char* f = filename.c_str();
@@ -52,14 +52,17 @@ FILE* PDFWriter::text_to_pdf()
 	pdf.open("1.pdf", ios::app);
 	
 	/* Length calculation */
-	string::size_type length = line.size();
+	string::size_type length = line.size() + line2.size();;
 	length += 30; // The other stuff like font takes bytes too
 	pdf << "<</Length " + to_string(length) + ">>\n";
 	
 	/* Put in the content */
+	/* Because font size is 12, each line is separated by 12 plus no margin */
 	pdf << "stream\n";
-	pdf << "BT /F1 12 Tf 175 720 Td\n";
-	pdf << "(" + line + ")Tj ET\n";
+
+	pdf << create_line(line, DEFAULT_X, DEFAULT_Y);
+	pdf << create_line(line2, DEFAULT_X, DEFAULT_Y - 12);
+
 	pdf << "endstream\n";
 	pdf << "endobj\n";
 
@@ -78,7 +81,14 @@ FILE* PDFWriter::text_to_pdf()
 	pdf << "406\n";
 	pdf << "%%EOF\n";
 
+	/*
+	ofstream qqq;
+	qqq.open("2.pdf", ios::out);
+	qqq << pdf.rdbuf();
+	*/
+
 	pdf.close();
+	// qqq.close();
 }
 
 FILE* PDFWriter::img_to_pdf()
@@ -87,4 +97,10 @@ FILE* PDFWriter::img_to_pdf()
 
 FILE* PDFWriter::html_to_pdf()
 {
+}
+
+string PDFWriter::create_line(string s, int x, int y)
+{
+	return "BT /F1 12 Tf " + to_string(x) + " " + to_string(y) + " Td\n" +
+		   "(" + s + ") Tj ET\n";
 }
