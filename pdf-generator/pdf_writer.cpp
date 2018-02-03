@@ -41,18 +41,24 @@ FILE* PDFWriter::text_to_pdf()
 	
     // string filename = out + ".pdf";
 	// const char* f = filename.c_str();
-	ofstream pdf;
 	
+	ifstream src("1.pdf", ios::binary);
+	ofstream pdf("out.pdf", ios::binary);
+	
+	pdf << src.rdbuf();
+	src.close();
+	pdf.close();
+
 	/* Line to modify I: version number aka overwrite first line */
-	pdf.open("1.pdf", ios::in);
+	pdf.open("out.pdf", ios::in);
 	pdf << "%PDF-" + PDF_VERSION;
 	pdf.close();
 	
 	/* Open in append mode instead */
-	pdf.open("1.pdf", ios::app);
+	pdf.open("out.pdf", ios::app);
 	
 	/* Length calculation */
-	string::size_type length = line.size() + line2.size();;
+	string::size_type length = line.size() + line2.size();
 	length += 30; // The other stuff like font takes bytes too
 	pdf << "<</Length " + to_string(length) + ">>\n";
 	
@@ -81,14 +87,7 @@ FILE* PDFWriter::text_to_pdf()
 	pdf << "406\n";
 	pdf << "%%EOF\n";
 
-	/*
-	ofstream qqq;
-	qqq.open("2.pdf", ios::out);
-	qqq << pdf.rdbuf();
-	*/
-
 	pdf.close();
-	// qqq.close();
 }
 
 FILE* PDFWriter::img_to_pdf()
