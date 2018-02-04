@@ -18,8 +18,8 @@ const int DEFAULT_Y = 720;
 class PDFWriter
 {
   public:
-	PDFWriter(string s, string e);           // write w/o output name 
-	PDFWriter(string s, string e, string o); // writer w/ output name
+	PDFWriter(string s, string e);           // write using same name as input
+	PDFWriter(string s, string e, string o); // write using custom name
 	~PDFWriter();
 	void write_to_pdf();
 

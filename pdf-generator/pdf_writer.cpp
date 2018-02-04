@@ -2,13 +2,16 @@
 
 // Public 
 //
-PDFWriter::PDFWriter(string s, string e): name(s), extension(e), out(e)
+PDFWriter::PDFWriter(string s, string e): name(s), extension(e)
 {
 	file.open(s);
 	if(!file.is_open())
 	{
 		cout << "Error: File not found!" << endl;
 	}
+
+	/* Find the input filename */
+	out = s.substr(0, s.find('.' + e));
 }
 
 PDFWriter::PDFWriter(string s, string e, string o): name(s), extension(e), out(o)
@@ -43,30 +46,25 @@ void PDFWriter::write_to_pdf()
 	}
 }
 
-// Private
-
+// Private 
 void PDFWriter::text_to_pdf()
 {
-	//string line = "Hello, my name is Jack!";
-	//string line2 = "No, my name is actually spelled Jeck";
-	
-    // string filename = out + ".pdf";
-	// const char* f = filename.c_str();
-	
+	string out_file_name = out + ".pdf";
+
 	ifstream src("txt_template.pdf", ios::binary);
-	ofstream pdf("out.pdf", ios::binary);
+	ofstream pdf(out_file_name, ios::binary);
 	
 	pdf << src.rdbuf();
 	src.close();
 	pdf.close();
 
 	/* Line to modify I: version number aka overwrite first line */
-	pdf.open("out.pdf", ios::in);
+	pdf.open(out_file_name, ios::in);
 	pdf << "%PDF-" + PDF_VERSION;
 	pdf.close();
 	
 	/* Open in append mode instead */
-	pdf.open("out.pdf", ios::app);
+	pdf.open(out_file_name, ios::app);
 	
 	/* Length calculation TODO: Magic number spotted */
 	string::size_type length = 100;
