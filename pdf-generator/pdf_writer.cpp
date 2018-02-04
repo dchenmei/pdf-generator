@@ -53,7 +53,7 @@ void PDFWriter::text_to_pdf()
     // string filename = out + ".pdf";
 	// const char* f = filename.c_str();
 	
-	ifstream src("1.pdf", ios::binary);
+	ifstream src("txt_template.pdf", ios::binary);
 	ofstream pdf("out.pdf", ios::binary);
 	
 	pdf << src.rdbuf();
