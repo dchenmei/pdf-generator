@@ -30,20 +30,7 @@ PDFWriter::~PDFWriter()
 
 void PDFWriter::write_to_pdf()
 {
-	switch(extension[0])
-	{
-		case 't':
-	    	text_to_pdf();
-			break;
-		case 'j':
-			img_to_pdf();
-			break;
-		case 'h':
-			html_to_pdf();
-			break;
-		default:
-			break;
-	}
+	text_to_pdf();
 }
 
 // Private 
@@ -105,14 +92,6 @@ void PDFWriter::text_to_pdf()
 	pdf << "%%EOF\n";
 
 	pdf.close();
-}
-
-void PDFWriter::img_to_pdf()
-{
-}
-
-void PDFWriter::html_to_pdf()
-{
 }
 
 string PDFWriter::create_line(string s, int x, int y)

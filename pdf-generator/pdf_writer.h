@@ -26,8 +26,6 @@ class PDFWriter
   private:
 	// helper functions
 	void text_to_pdf();
-	void img_to_pdf();
-	void html_to_pdf();
 	string create_line(string s, int x, int y);
 
 	ifstream file;
