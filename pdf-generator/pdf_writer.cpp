@@ -1,40 +1,25 @@
 #include "pdf_writer.h"
 
-// Public 
-//
-PDFWriter::PDFWriter(string s, string e): name(s), extension(e)
-{
-	file.open(s);
-	if(!file.is_open())
-	{
-		cout << "Error: File not found!" << endl;
-	}
-
-	/* Find the input filename */
-	out = s.substr(0, s.find('.' + e));
-}
+/* Public */
 
 PDFWriter::PDFWriter(string s, string e, string o): name(s), extension(e), out(o)
 {
 	file.open(s);
 	if(!file.is_open())
 	{
-		cout << "Error: File not found!" << endl;
+		throw invalid_argument("File not found.");
 	}
 }
 
 PDFWriter::~PDFWriter()
 {
-	file.close();
+	if (file.is_open())
+	{
+		file.close();
+	}
 }
 
 void PDFWriter::write_to_pdf()
-{
-	text_to_pdf();
-}
-
-// Private 
-void PDFWriter::text_to_pdf()
 {
 	string out_file_name = out + ".pdf";
 
@@ -94,6 +79,7 @@ void PDFWriter::text_to_pdf()
 	pdf.close();
 }
 
+// Private 
 string PDFWriter::create_line(string s, int x, int y)
 {
 	return "BT /F1 12 Tf " + to_string(x) + " " + to_string(y) + " Td\n" +

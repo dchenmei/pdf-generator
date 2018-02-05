@@ -18,14 +18,12 @@ const int DEFAULT_Y = 720;
 class PDFWriter
 {
   public:
-	PDFWriter(string s, string e);           // write using same name as input
-	PDFWriter(string s, string e, string o); // write using custom name
+	PDFWriter(string s, string e, string o); 
 	~PDFWriter();
 	void write_to_pdf();
 
   private:
 	// helper functions
-	void text_to_pdf();
 	string create_line(string s, int x, int y);
 
 	ifstream file;

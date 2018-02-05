@@ -59,17 +59,20 @@ int main(int argc, char *argv[])
 		return -1;
 	}
 
-	/* Open file */
-	ifstream file(argv[1]);
-
 	/* Pass to file writer and alert completion */
 	
-	PDFWriter *writer;
-	if (argc == 3)
-		writer = new PDFWriter(argv[1], extension, argv[2]);
+	string out;
+	if (argc == 2)
+	{
+		out = file_name.substr(0, file_name.find('.' + extension));
+	}
 	else
-		writer = new PDFWriter(argv[1], extension);
-
+	{
+		out = argv[2];
+	}
+		
+	PDFWriter *writer = new PDFWriter(file_name, extension, out);
+	
 	writer->write_to_pdf();
 
 	/* Completion message */
