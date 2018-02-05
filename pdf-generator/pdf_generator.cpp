@@ -26,17 +26,7 @@ void print_usage_instruction()
 	cout << "Usage: " << endl;
 	cout << "./pdf-generator filename.ext out" << endl;
 	cout << "out: optional file name for output pdf" << endl;
-	cout << "Note: Only supports text files, images (jpeg and png), and HTML" << endl;
-}
-
-bool valid_file_name(string name)
-{
-	/* Not using compare, because only true/false is needed */
-	return name == "txt"  || 
-		   name == "png"  || 
-		   name == "jpg"  || 
-		   name == "jpeg" ||
-		   name == "html";  
+	cout << "Note: Only supports text files" << endl;
 }
 
 int main(int argc, char *argv[])
@@ -62,10 +52,11 @@ int main(int argc, char *argv[])
 	int found = file_name.rfind(".");
 	extension = file_name.substr(found + 1); /* offset by one to ignore "." */
 
-	if (!valid_file_name(extension))
+	if (extension != "txt")
 	{
 		cout << "Error: Invalid file extension. See below." << endl;
 		print_usage_instruction();
+		return -1;
 	}
 
 	/* Open file */
@@ -81,7 +72,8 @@ int main(int argc, char *argv[])
 
 	writer->write_to_pdf();
 
-	// TODO: Print message about completion / failure as well as resulting file name
+	/* Completion message */
+	cout << "Writing to pdf..." << endl;
 
 	return 0;
 }
