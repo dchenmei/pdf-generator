@@ -2,7 +2,7 @@
 
 /* Public */
 
-PDFWriter::PDFWriter(string s, string e, string o): name(s), extension(e), out(o)
+PDFWriter::PDFWriter(string s, string o): name(s), out(o)
 {
 	file.open(s);
 	if(!file.is_open())

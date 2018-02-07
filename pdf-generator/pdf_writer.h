@@ -18,7 +18,7 @@ const int DEFAULT_Y = 720;
 class PDFWriter
 {
   public:
-	PDFWriter(string s, string e, string o); 
+	PDFWriter(string s, string o); 
 	~PDFWriter();
 	void write_to_pdf();
 
@@ -28,6 +28,5 @@ class PDFWriter
 
 	ifstream file;
 	string name;
-	string extension;
 	string out;
 };
