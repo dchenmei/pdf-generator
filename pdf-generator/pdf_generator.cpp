@@ -3,41 +3,25 @@
 #include <cstdio>
 #include "pdf_writer.h"
 
-/* To compile, please include pdf_write.cpp */ 
-
-/* TODO: optimize namespace later 
-using std::cout;
-using std::cin;
-using std::endl;
-using std::string;
-*/
-
 using namespace std;
 
 /* Usage Instructions
  *
- * ./pdf-generator filename.extension -o out.pdf
+ * ./pdf-generator filename.txt out
  *
- * -o: optional option to set the name for output pdf, default filename.pdf
+ * out: optional out file name, default is input filename
  * 
  */
 void print_usage_instruction()
 {
 	cout << "Usage: " << endl;
-	cout << "./pdf-generator filename.ext out" << endl;
+	cout << "./pdf-generator filename.txt out" << endl;
 	cout << "out: optional file name for output pdf" << endl;
-	cout << "Note: Only supports text files" << endl;
 }
 
 int main(int argc, char *argv[])
 {
-	/* Pseudocode, for valid arguments:
-     *			   extract the file name and check the extension then call proper functions
-     *			   validate the extension
-     *
-     */
-
-	/* Insufficient arguments, print usage instruction */
+	/* Invalid number of arguments, print usage instruction */
 	if (argc != 2 && argc != 3)
 	{
 		cout << "Error: Invalid number of arguments. See below." << endl;
@@ -45,7 +29,7 @@ int main(int argc, char *argv[])
 		return -1;
 	}
 	
-	/* Get extension */
+	/* Check for correct extension, .txt */
 	string file_name = argv[1];
 	string extension; 
 
@@ -54,13 +38,11 @@ int main(int argc, char *argv[])
 
 	if (extension != "txt")
 	{
-		cout << "Error: Invalid file extension. See below." << endl;
-		print_usage_instruction();
+		cout << "Error: Invalid file extension. Must be of type txt." << endl;
 		return -1;
 	}
 
-	/* Pass to file writer and alert completion */
-	
+	/* Extract default out name if not provided by user */
 	string out;
 	if (argc == 2)
 	{
@@ -71,12 +53,13 @@ int main(int argc, char *argv[])
 		out = argv[2];
 	}
 		
-	PDFWriter *writer = new PDFWriter(file_name, extension, out);
+	/* Pass to writer */
+	PDFWriter *writer = new PDFWriter(file_name, out);
 	
 	writer->write_to_pdf();
 
 	/* Completion message */
-	cout << "Writing to pdf..." << endl;
+	cout << "Writing to pdf... Done" << endl;
 
 	return 0;
 }
