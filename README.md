@@ -1,6 +1,8 @@
 # PDF Generator
 
-A tool that takes a text file and converts it into PDF. 
+A tool that takes a text file and converts it into PDF with the following specifications:
+* 12pt Times New Roman font
+* 612 x 792 page size
 
 ## Usage
 
