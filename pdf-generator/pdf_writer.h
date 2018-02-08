@@ -23,7 +23,7 @@ class PDFWriter
 	void write_to_pdf();
 
   private:
-	// helper functions
+	// helper function
 	string create_line(string s, int x, int y);
 
 	ifstream file;
