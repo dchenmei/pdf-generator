@@ -48,6 +48,7 @@ void PDFWriter::write_to_pdf()
 	/* Write content of text file */
 	pdf.open(out_file_name, ios::app);
 	
+	/* TODO: Possibly fix magical number without prior knowledge of incoming stream? */
 	string::size_type length = 100;
 	length += 30; 
 	pdf << "<</Length " + to_string(length) + ">>\n";

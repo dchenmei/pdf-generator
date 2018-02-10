@@ -11,9 +11,9 @@
 
 using namespace std;
 
-const string PDF_VERSION = "1.7";
-const int DEFAULT_X = 50;
-const int DEFAULT_Y = 720;
+const string PDF_VERSION = "1.7"; 
+const int DEFAULT_X = 50; // Writer initial x coordinate
+const int DEFAULT_Y = 720; // Write initial y coordinate
 
 class PDFWriter
 {
